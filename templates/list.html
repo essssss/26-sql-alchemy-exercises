@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+<ul>
+    {% for user in users %}
+    <li>
+        <a href="/{{ user.id }}">
+            <img
+                src="{{
+			user.image_url }}"
+                height="50px"
+            />{{ user.first_name }} {{ user.last_name }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="/form">Add a New User</a>
+
+{% endblock %}
