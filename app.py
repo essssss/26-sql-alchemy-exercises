@@ -48,9 +48,45 @@ def show_user(user_id):
     return render_template("user-details.html", user=user)
 
 
-@app.route("/<int:user_id>/edit")
+@app.route("/<int:user_id>", methods=["POST"])
 def edit_user(user_id):
-    """edit a user's details"""
+    """Edit a user's details"""
+    user = User.query.get_or_404(user_id)
+
+    if request.form["first_name"]:
+        user.first_name = request.form["first_name"]
+    if request.form["last_name"]:
+        user.last_name = request.form["last_name"]
+    if request.form["image_url"]:
+        user.image_url = request.form["image_url"]
+
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect(f"/{user.id}")
+
+
+@app.route("/<int:user_id>/delete")
+def show_delete_confirmation(user_id):
+    """request confirmation to delete user"""
+    user = User.query.get_or_404(user_id)
+
+    return render_template("delete.html", user=user)
+
+
+@app.route("/<int:user_id>/delete", methods=["POST"])
+def delete_user(user_id):
+    user = User.query.get_or_404(user_id)
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return redirect("/")
+
+
+@app.route("/<int:user_id>/edit")
+def show_edit_user_form(user_id):
+    """Show a form to edit a user's details"""
 
     user = User.query.get_or_404(user_id)
     return render_template("edit-user.html", user=user)

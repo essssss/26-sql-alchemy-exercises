@@ -1,12 +1,29 @@
 {% extends 'base.html' %} {% block content %}
 <h3>Edit User</h3>
-<form action="/" method="POST">
-    <input type="text" name="first_name" placeholder="{{ user.first_name }}" />
+<form action="/{{ user.id }}" method="POST">
+    <label>First Name</label>
+    <input type="text" name="first_name" value="{{ user.first_name }}" /><br />
+    <label>Last Name</label>
+    <input type="text" name="last_name" value="{{ user.last_name }}" /><br />
+    <label>Image URL</label>
+    <input type="text" name="image_url" value="{{ user.image_url }}" /><br />
 
-    <input type="text" name="last_name" placeholder="{{ user.last_name }}" />
-
-    <input type="text" name="image_url" placeholder="{{ user.image_url }}" />
-
-    <button href="/" type="button" class="btn btn-danger">Cancel</button>
+    <button
+        type="submit"
+        formmethod="post"
+        formaction="/{{ user.id }}"
+        class="btn btn-success"
+    >
+        Submit
+    </button>
+    <button
+        type="submit"
+        formmethod="get"
+        formaction="/{{ user.id }}"
+        class="btn btn-warning"
+    >
+        cancel
+    </button>
 </form>
+
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+<form>
+    <h2>Are you sure?</h2>
+    <button type="submit" formmethod="post" class="btn btn-secondary">
+        YES
+    </button>
+    <button
+        type="submit"
+        formaction="/{{ user.id }}"
+        formmethod="get"
+        class="btn btn-success"
+    >
+        GO BACK
+    </button>
+</form>
+
+{% endblock %}
